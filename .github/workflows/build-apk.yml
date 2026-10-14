@@ -8,6 +8,11 @@ on:
 permissions:
   contents: write
 
+# the app is inside the ITN-Campaign-APK folder of this repository
+defaults:
+  run:
+    working-directory: ITN-Campaign-APK
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -33,7 +38,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ITN-Campaign-APK
-          path: ITN-Campaign.apk
+          path: ITN-Campaign-APK/ITN-Campaign.apk
 
       - name: Publish as a download (Releases)
         uses: softprops/action-gh-release@v2
@@ -41,4 +46,4 @@ jobs:
           tag_name: build-${{ github.run_number }}
           name: ITN Campaign build ${{ github.run_number }}
           body: Install ITN-Campaign.apk on any Android phone (ITN Mass Campaign app).
-          files: ITN-Campaign.apk
+          files: ITN-Campaign-APK/ITN-Campaign.apk
