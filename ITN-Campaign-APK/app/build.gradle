@@ -1,0 +1,45 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'icf.itncampaign'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "icf.itncampaign"
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+    }
+
+    // One fixed key in the repository, so every build has the same signature and a new
+    // APK installs over the old one without losing what is saved on the phone.
+    signingConfigs {
+        shared {
+            storeFile file('itn-campaign.keystore')
+            storePassword 'android'
+            keyAlias 'itncampaign'
+            keyPassword 'android'
+        }
+    }
+
+    buildTypes {
+        debug { signingConfig signingConfigs.shared }
+        release { minifyEnabled false; signingConfig signingConfigs.shared }
+    }
+
+    // the page is large (it carries its videos): keep it uncompressed so it opens fast
+    androidResources { noCompress 'html' }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    implementation 'androidx.webkit:webkit:1.11.0'
+    implementation 'androidx.core:core:1.13.1'
+}
